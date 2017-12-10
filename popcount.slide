@@ -18,7 +18,7 @@ https://github.com/tooru/gopl-popcount
 
 * 経緯
 
-- 書籍「プログラミング言語Go」の練習問題11.6で[[src/main/main.go][PopCount]]の実装を評価するという問題がある。PopCountとはint64のビット列に1がいくつあるか数える関数。
+- 書籍「プログラミング言語Go」の練習問題11.6で[[https://github.com/tooru/gopl-popcount/blob/master/src/main/main.go#L16][popCount]]関数の速度を評価するという問題がある。popCountとはint64のビット列に1がいくつあるか数える関数。
 - 前回の読書会で、最近のGoコンパイラは賢くなったためPopCountが速くなり問題として成立しなくなったと話題に
 - ベンチマーク結果 (PopCount呼出しをループするだけ)
  go version go1.6.4 linux/amd64
@@ -71,7 +71,7 @@ PopCountがどう最適化されていくか見ていく
  $ env GOSSAFUNC=PopCount go tool compile popcount.go
  $ open ssa.html # ssa形式が最適化されていく過程を見られる
 
-.link slide/ssa_popcount.html ssa.html (PopCount)
+.link https://htmlpreview.github.io/?https://github.com/tooru/gopl-popcount/blob/master/slide/ssa_popcount.html ssa.html (PopCount)
 
 - 最初のSSA形式からの変化を見ると・・・
 
@@ -140,7 +140,7 @@ PopCountはベンチマークと同じように最適化されている
 
 .code slide/popcount_test.popcount.s
 
-- こちらも空ループに置き換わっている。その理由は[[slide/ssa_popcount_test.html][ssa.html]] を見ると分かる。
+- こちらも空ループに置き換わっている。その理由は[[https://htmlpreview.github.io/?https://github.com/tooru/gopl-popcount/blob/master/slide/ssa_popcount_test.html][ssa.html]] を見ると分かる。
 
 
 * 何が起きていたのか
@@ -237,14 +237,14 @@ PopCountはベンチマークと同じように最適化されている
 
 - (1)pcのアドレスを8回取得するのではなく、一旦レジスタ(CX)に格納し再利用
 - (2)インライン展開によって引き数(0x1234567890ABCDEF)の各バイトをビットシフトした値がコンパイル時に計算されている。
-- 参考:  [[slide/ssa_benchpopcount2_1.7.html]]
+- 参考:  [[https://htmlpreview.github.io/?https://github.com/tooru/gopl-popcount/blob/master/slide/ssa_benchpopcount2_1.7.html]]
 
 * Appendix2. Go1.9.2の BenchmarkPopCount2 のアセンブリコード
 
 .code -numbers slide/BenchmarkPopCount2-1.9.2.s /^    0x0005/,/^    0x004c/
 
 - インデックスを一旦レジスタに入れることなく、MOVBLZX 1命令に。
-- 参考:  [[slide/ssa_benchpopcount2_1.9.2.html]]
+- 参考:  [[https://htmlpreview.github.io/?https://github.com/tooru/gopl-popcount/blob/master/slide/ssa_benchpopcount2_1.9.2.html]]
 
 : MOVBLZX MOV Byte to Long?(word) with Zero Extension メモリのバイトをワードサイズのレジスタに0拡張して格納、だと思う
 
@@ -255,7 +255,7 @@ PopCountはベンチマークと同じように最適化されている
 .code -numbers slide/BenchmarkBitCount2-1.9.2.s /^    0x000a/,/^    0x0020/
 
 - インライン展開によってコンパイル時に答えが計算されている。ループで毎回レジスタに即値32を代入しているだけ。
-- 参考:  [[sldie/ssa_benchbitcount2_1.9.2.html]] 「after opt」で答えが計算されている。
+- 参考:  [[https://htmlpreview.github.io/?https://github.com/tooru/gopl-popcount/blob/master/sldie/ssa_benchbitcount2_1.9.2.html]] 「after opt」で答えが計算されている。
 
 * Appendix3. Go1.9.2の BenchmarkBitCount2 最適化 (2/2)
 
@@ -276,7 +276,7 @@ PopCountはベンチマークと同じように最適化されている
 ❓空ループはなぜ最適化で消えないのか
 
 - できるのかもしれませんが、空ループであることの判別が難しい気がします。
-- [[src/main/main.go][main.go]]のmain関数の[[slide/ssa_main_1.9.2.html][ssa.html]]の「after trim」を参照 (右から2番目)。空ループとはいえ結構複雑です。
+- [[https://github.com/tooru/gopl-popcount/blob/master/src/main/main.go#L74]]のmain関数の[[https://htmlpreview.github.io/?https://github.com/tooru/gopl-popcount/blob/master/slide/ssa_main_1.9.2.html][ssa.html]]の「after trim」を参照 (右から2番目)。空ループとはいえ結構複雑です。
 
  b1:
   ...
