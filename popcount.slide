@@ -275,21 +275,10 @@ PopCountはベンチマークと同じように最適化されている
 
 ❓空ループはなぜ最適化で消えないのか
 
-- できるのかもしれませんが、空ループであることの判別が難しい気がします。
-- [[https://github.com/tooru/gopl-popcount/blob/master/src/main/main.go#L74][src/main/main.go]]のmain関数の[[https://htmlpreview.github.io/?https://github.com/tooru/gopl-popcount/blob/master/slide/ssa_main_1.9.2.html][ssa.html]]の「after trim」を参照 (右から2番目)。空ループとはいえ結構複雑です。
+- GCCでは最適化オプション(-O1)で空ループは削除されます。
 
- b1:
-  ...
-  v66 = MOVQconst <int> [0] : BX           ; i = 0
- Plain → b2                                ; goto b2
+.code src/gcc/main.c 
 
- b4: ← b2                                  ; b4にはb2から飛んでくる
-  v80 = ADDQconst <int> [1] v8 : BX        ; i++
- Plain → b2                                ; goto b2
- 
- b2: ← b1 b4                               ; b2にはb1かb4から飛んでくる
-  v8 = Phi <int> v66 v80 : BX           ; v8にはv66/v80どちらかが入る (v66とv80は同じレジスタを使うという制約)
-  v116 = CMPQconst <flags> [2000000000] v8 ; i < 2000000000
- LT v116 → b4 b8 (likely)                  ; i < 2000000000 then goto b4 else b8
+.code src/gcc/memo
 
-- 空ループと判定する汎用アルゴリズムを書くのは難しいのでは(予想です)。
+- 今後に期待でしょうか。
