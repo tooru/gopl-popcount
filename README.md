@@ -10,3 +10,9 @@
  * [第12回横浜Go読書会](https://yokohama-go-reading.connpass.com/event/72071/)にて発表
  * https://go-talks.appspot.com/github.com/tooru/gopl-popcount/popcount.slide (japanese)
  
+## Related article
+
+* GoのSSA最適化制御オプション -	Qiita
+* https://qiita.com/tooru/items/a55bcdac0500d9a93f39 (japanese)
+
+
