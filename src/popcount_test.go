@@ -8,6 +8,7 @@ const (
 	N = 0x1234567890ABCDEF
 )
 
+var Input uint64 = N
 var Output int
 
 func benchmarkPopCount(b *testing.B, count int) {
@@ -45,6 +46,13 @@ func BenchmarkBitCount2(b *testing.B) {
 	var c int
 	for i := 0; i < b.N; i++ {
 		c = bitCount(N)
+	}
+	Output = c
+}
+func BenchmarkBitCount3(b *testing.B) {
+	var c int
+	for i := 0; i < b.N; i++ {
+		c = bitCount(Input)
 	}
 	Output = c
 }
