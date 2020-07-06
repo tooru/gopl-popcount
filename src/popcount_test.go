@@ -21,14 +21,14 @@ func BenchmarkPopCount(b *testing.B) {
 	}
 }
 
-var benchResult int
+var Output int
 
 func BenchmarkPopCount2(b *testing.B) {
 	var c int
 	for i := 0; i < b.N; i++ {
 		c = popCount(0x1234567890ABCDEF)
 	}
-	benchResult = c
+	Output = c
 }
 
 func BenchmarkBitCount(b *testing.B) {
@@ -42,7 +42,7 @@ func BenchmarkBitCount2(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		c = bitCount(0x1234567890ABCDEF)
 	}
-	benchResult = c
+	Output = c
 }
 
 func BenchmarkPopCountByClearing(b *testing.B) {
@@ -56,7 +56,7 @@ func BenchmarkPopCountByClearing2(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		c = popCountByClearing(0x1234567890ABCDEF)
 	}
-	benchResult = c
+	Output = c
 }
 
 func BenchmarkPopCountByShifting(b *testing.B) {
@@ -70,7 +70,7 @@ func BenchmarkPopCountByShifting2(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		c = popCountByShifting(0x1234567890ABCDEF)
 	}
-	benchResult = c
+	Output = c
 }
 
 func BenchmarkEmpty(b *testing.B) {
@@ -84,5 +84,5 @@ func BenchmarkEmpty2(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		c = empty(0x1234567890ABCDEF)
 	}
-	benchResult = c
+	Output = c
 }
