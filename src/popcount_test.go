@@ -8,6 +8,8 @@ const (
 	N = 0x1234567890ABCDEF
 )
 
+var Output int
+
 func benchmarkPopCount(b *testing.B, count int) {
 	for i := 0; i < b.N; i++ {
 		for j := range pc {
@@ -24,8 +26,6 @@ func BenchmarkPopCount(b *testing.B) {
 		popCount(N)
 	}
 }
-
-var Output int
 
 func BenchmarkPopCount2(b *testing.B) {
 	var c int
