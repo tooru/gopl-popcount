@@ -4,85 +4,127 @@ import (
 	"testing"
 )
 
+const (
+	N = 0x1234567890ABCDEF
+)
+
+var Input uint64 = N
+var Output int
+
 func benchmarkPopCount(b *testing.B, count int) {
 	for i := 0; i < b.N; i++ {
 		for j := range pc {
 			pc[j] = pc[j/2] + byte(j&1) // pcはグローバル変数
 		}
 		for j := 0; j < count; j++ {
-			popCount(0x1234567890ABCDEF)
+			popCount(N)
 		}
 	}
 }
 
 func BenchmarkPopCount(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		popCount(0x1234567890ABCDEF)
+		popCount(N)
 	}
 }
-
-var benchResult int
 
 func BenchmarkPopCount2(b *testing.B) {
 	var c int
 	for i := 0; i < b.N; i++ {
-		c = popCount(0x1234567890ABCDEF)
+		c = popCount(N)
 	}
-	benchResult = c
+	Output = c
+}
+
+func BenchmarkPopCount3(b *testing.B) {
+	var c int
+	for i := 0; i < b.N; i++ {
+		c = popCount(Input)
+	}
+	Output = c
 }
 
 func BenchmarkBitCount(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		bitCount(0x1234567890ABCDEF)
+		bitCount(N)
 	}
 }
 
 func BenchmarkBitCount2(b *testing.B) {
 	var c int
 	for i := 0; i < b.N; i++ {
-		c = bitCount(0x1234567890ABCDEF)
+		c = bitCount(N)
 	}
-	benchResult = c
+	Output = c
+}
+func BenchmarkBitCount3(b *testing.B) {
+	var c int
+	for i := 0; i < b.N; i++ {
+		c = bitCount(Input)
+	}
+	Output = c
 }
 
 func BenchmarkPopCountByClearing(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		popCountByClearing(0x1234567890ABCDEF)
+		popCountByClearing(N)
 	}
 }
 
 func BenchmarkPopCountByClearing2(b *testing.B) {
 	var c int
 	for i := 0; i < b.N; i++ {
-		c = popCountByClearing(0x1234567890ABCDEF)
+		c = popCountByClearing(N)
 	}
-	benchResult = c
+	Output = c
+}
+
+func BenchmarkPopCountByClearing3(b *testing.B) {
+	var c int
+	for i := 0; i < b.N; i++ {
+		c = popCountByClearing(Input)
+	}
+	Output = c
 }
 
 func BenchmarkPopCountByShifting(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		popCountByShifting(0x1234567890ABCDEF)
+		popCountByShifting(N)
 	}
 }
 
 func BenchmarkPopCountByShifting2(b *testing.B) {
 	var c int
 	for i := 0; i < b.N; i++ {
-		c = popCountByShifting(0x1234567890ABCDEF)
+		c = popCountByShifting(N)
 	}
-	benchResult = c
+	Output = c
+}
+func BenchmarkPopCountByShifting3(b *testing.B) {
+	var c int
+	for i := 0; i < b.N; i++ {
+		c = popCountByShifting(Input)
+	}
+	Output = c
 }
 
 func BenchmarkEmpty(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		empty(0x1234567890ABCDEF)
+		empty(N)
 	}
 }
 
 func BenchmarkEmpty2(b *testing.B) {
 	var c int
 	for i := 0; i < b.N; i++ {
-		c = empty(0x1234567890ABCDEF)
+		c = empty(N)
 	}
-	benchResult = c
+	Output = c
+}
+func BenchmarkEmpty3(b *testing.B) {
+	var c int
+	for i := 0; i < b.N; i++ {
+		c = empty(Input)
+	}
+	Output = c
 }
