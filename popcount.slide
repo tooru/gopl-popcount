@@ -279,7 +279,7 @@ PopCountはベンチマークと同じように最適化されている
 🔆 bitCountの最適化を抑制するヒントを教えていただいた。
 
 - [[https://github.com/golang/go/blob/release-branch.go1.14/src/math/bits/bits_test.go][golangのテストコード]]ではグローバル変数を使用して関数の最適化を抑制している。
-- bitCountの引数にグローバル変数を渡すことで、定数畳み込みを抑止している。
+- bitCountの引数にグローバル変数を渡すことで、定数畳み込みを抑止できる。
 - 注意：グローバル変数を使う場合は比較する他の関数でも同じ条件で計測が必要。
 
 🔆 Go14.4のssa.html
